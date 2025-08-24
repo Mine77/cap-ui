@@ -12,7 +12,7 @@ type NuwaParentMethods = {
   sendPrompt(prompt: string): Reply<string>;
 };
 
-export const useNuwaParent = ({ onReceiveMessage }: UseNuwaParentProps) => {
+export const useNuwaUI = ({ onReceiveMessage }: UseNuwaParentProps) => {
   const [parentMethods, setParentMethods] =
     useState<RemoteProxy<NuwaParentMethods> | null>(null);
 

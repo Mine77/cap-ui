@@ -1,19 +1,29 @@
 // app/api/[transport]/route.ts
 import { createMcpHandler } from "mcp-handler";
 import { type NextRequest, NextResponse } from "next/server";
+import { z } from "zod";
+import { createCapUIResource } from "@/utils";
 
 const handler = createMcpHandler(
   async (server) => {
     // server comes from the official MCP SDK
     server.tool(
-      "get_ui", // The name of the tool
-      "Gets the ui", // A description what the tool does
-      {},
-      async () => {
+      "show_weather_ui", // The name of the tool
+      "Show the weather result with an interactive UI", // A description what the tool does
+      {
+        latitude: z.number().describe("The latitude of the location"),
+        longitude: z.number().describe("The longitude of the location"),
+      },
+      async ({ longitude, latitude }) => {
         // Implemenation of the tool
-        const ui = "http://localhost:3000/weather";
+        const resource = createCapUIResource({
+          type: "embed-ui",
+          uiUrl: `http://localhost:3000/weather?latitude=${latitude}&longitude=${longitude}`,
+          name: "weather",
+          height: 160,
+        });
         return {
-          content: [{ type: "text", text: `UI: ${ui}` }],
+          content: [{ type: "resource", resource: resource }],
         };
       },
     );

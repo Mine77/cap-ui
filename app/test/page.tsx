@@ -1,14 +1,14 @@
 "use client";;
 
 import { useState } from "react";
-import { useNuwaParent } from "@/hooks/use-nuwa-parent";
+import { useNuwaUI } from "@/hooks/use-nuwa-ui";
 
-export default function WeatherPage() {
+export default function TestPage() {
     const [inputValue, setInputValue] = useState("");
     const [messageReceived, setMessageReceived] = useState("");
 
 
-    const { parentMethods } = useNuwaParent({
+    const { parentMethods } = useNuwaUI({
         onReceiveMessage: (incomingMessage: string) => {
             console.log("Child: Received message from parent:", incomingMessage);
             setMessageReceived(incomingMessage)

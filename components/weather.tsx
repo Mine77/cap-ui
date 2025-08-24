@@ -4,7 +4,7 @@ import cx from 'classnames';
 import { format, isWithinInterval } from 'date-fns';
 import { useEffect, useState } from 'react';
 
-interface WeatherAtLocation {
+export interface WeatherAtLocation {
     latitude: number;
     longitude: number;
     generationtime_ms: number;
@@ -42,7 +42,7 @@ interface WeatherAtLocation {
     };
 }
 
-const SAMPLE = {
+export const SAMPLE = {
     latitude: 37.763283,
     longitude: -122.41286,
     generationtime_ms: 0.027894973754882812,
@@ -307,5 +307,6 @@ export function Weather({
                 ))}
             </div>
         </div>
+
     );
 }
