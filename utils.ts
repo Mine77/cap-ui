@@ -1,7 +1,5 @@
 import type { NuwaCapUIResource, NuwaCapUIURI } from "@/types/nuwa-iframe-ui";
 
-const MAX_UI_HEIGHT = 500;
-
 export function isValidUrl(url: string): boolean {
   try {
     new URL(url);
@@ -35,9 +33,6 @@ export const createCapUIResource = ({
   if (!isValidUrl(uiUrl)) throw new Error("Invalid URL");
 
   if (!isValidName(name)) throw new Error("Invalid Name");
-
-  if (height && height > MAX_UI_HEIGHT)
-    throw new Error("height exceeds max UI height");
 
   const uri = `capui://${type}/${name}` as NuwaCapUIURI;
 

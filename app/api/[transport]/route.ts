@@ -20,7 +20,7 @@ const handler = createMcpHandler(
           type: "embed-ui",
           uiUrl: `http://localhost:3000/weather?latitude=${latitude}&longitude=${longitude}`,
           name: "weather",
-          height: 160,
+          height: 280,
         });
         return {
           content: [{ type: "resource", resource: resource }],

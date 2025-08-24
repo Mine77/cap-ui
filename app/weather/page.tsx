@@ -27,7 +27,9 @@ export default function WeatherPage() {
 
     if (weatherData)
         return (
-            <Weather weatherAtLocation={weatherData} />
+            <div className="p-4">
+                <Weather weatherAtLocation={weatherData} />
+            </div>
         );
 
     return null;

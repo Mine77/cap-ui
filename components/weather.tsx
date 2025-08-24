@@ -251,62 +251,94 @@ export function Weather({
     return (
         <div
             className={cx(
-                'flex flex-col gap-4 rounded-2xl p-4 skeleton-bg max-w-[500px]',
+                'relative flex flex-col gap-6 rounded-3xl p-6 max-w-[500px] shadow-sm backdrop-blur-sm transition-all duration-300 ease-in-out transform hover:scale-105 animate-in fade-in slide-in-from-bottom-4 duration-500',
                 {
-                    'bg-blue-400': isDay,
+                    'bg-gradient-to-br from-sky-400 via-blue-500 to-indigo-600': isDay,
                 },
                 {
-                    'bg-indigo-900': !isDay,
+                    'bg-gradient-to-br from-indigo-900 via-purple-900 to-slate-900': !isDay,
                 },
             )}
         >
-            <div className="flex flex-row justify-between items-center">
-                <div className="flex flex-row gap-2 items-center">
+            <div className="absolute inset-0 bg-white/10 backdrop-blur-sm rounded-3xl" />
+            
+            <div className="relative z-10 flex flex-row justify-between items-start">
+                <div className="flex flex-row gap-4 items-center">
                     <div
                         className={cx(
-                            'size-10 rounded-full skeleton-div',
+                            'relative size-16 rounded-full transition-all duration-200 hover:scale-110 animate-pulse',
                             {
-                                'bg-yellow-300': isDay,
+                                'bg-gradient-to-br from-yellow-300 to-orange-400 shadow-sm shadow-yellow-400/30': isDay,
                             },
                             {
-                                'bg-indigo-100': !isDay,
+                                'bg-gradient-to-br from-slate-200 to-blue-100 shadow-sm shadow-blue-200/20': !isDay,
                             },
                         )}
-                    />
-                    <div className="text-4xl font-medium text-blue-50">
-                        {n(weatherAtLocation.current.temperature_2m)}
-                        {weatherAtLocation.current_units.temperature_2m}
+                    >
+                        <div
+                            className={cx(
+                                'absolute inset-2 rounded-full transition-all duration-300',
+                                {
+                                    'bg-gradient-to-br from-yellow-200 to-yellow-300 animate-spin': isDay,
+                                },
+                                {
+                                    'bg-gradient-to-br from-blue-50 to-indigo-100': !isDay,
+                                },
+                            )}
+                        />
+                    </div>
+                    <div className="flex flex-col">
+                        <div className="text-5xl font-bold text-white drop-shadow-lg animate-in slide-in-from-left-2 duration-400">
+                            {n(weatherAtLocation.current.temperature_2m)}
+                            <span className="text-2xl opacity-80">
+                                {weatherAtLocation.current_units.temperature_2m}
+                            </span>
+                        </div>
+                        <div className="text-white/80 text-sm mt-1 animate-in slide-in-from-left-2 duration-400 delay-100">
+                            {format(new Date(weatherAtLocation.current.time), 'EEEE, MMM d')}
+                        </div>
                     </div>
                 </div>
 
-                <div className="text-blue-50">{`H:${n(currentHigh)}° L:${n(currentLow)}°`}</div>
+                <div className="flex flex-col items-end gap-1 animate-in slide-in-from-right-2 duration-400 delay-150">
+                    <div className="text-white/90 font-medium">
+                        H: {n(currentHigh)}°
+                    </div>
+                    <div className="text-white/70">
+                        L: {n(currentLow)}°
+                    </div>
+                </div>
             </div>
 
-            <div className="flex flex-row justify-between">
+            <div className="relative z-10 grid grid-cols-5 md:grid-cols-6 gap-2">
                 {displayTimes.map((time, index) => (
-                    <div key={time} className="flex flex-col items-center gap-1">
-                        <div className="text-blue-100 text-xs">
+                    <div 
+                        key={time} 
+                        className="flex flex-col items-center gap-2 p-2 rounded-xl bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-all duration-200 hover:scale-105 animate-in fade-in slide-in-from-bottom-2 duration-300"
+                        style={{ animationDelay: `${index * 50}ms` }}
+                    >
+                        <div className="text-white/80 text-xs font-medium">
                             {format(new Date(time), 'ha')}
                         </div>
                         <div
                             className={cx(
-                                'size-6 rounded-full skeleton-div',
+                                'size-8 rounded-full transition-all duration-200 hover:scale-110',
                                 {
-                                    'bg-yellow-300': isDay,
+                                    'bg-gradient-to-br from-yellow-300 to-orange-400 shadow-sm shadow-yellow-400/20': isDay,
                                 },
                                 {
-                                    'bg-indigo-200': !isDay,
+                                    'bg-gradient-to-br from-slate-300 to-blue-200 shadow-sm shadow-blue-200/15': !isDay,
                                 },
                             )}
                         />
-                        <div className="text-blue-50 text-sm">
-                            {n(displayTemperatures[index])}
-                            {weatherAtLocation.hourly_units.temperature_2m}
+                        <div className="text-white font-semibold text-sm">
+                            {n(displayTemperatures[index])}°
                         </div>
                     </div>
                 ))}
             </div>
+            
+            <div className="absolute -inset-1 bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 rounded-3xl blur-xl" />
         </div>
-
     );
 }
