@@ -1,10 +1,10 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { Weather, type WeatherAtLocation } from "@/components/weather";
 
-export default function WeatherPage() {
+function WeatherContent() {
     const searchParams = useSearchParams();
     const [weatherData, setWeatherData] = useState<WeatherAtLocation | null>(
         null,
@@ -33,4 +33,12 @@ export default function WeatherPage() {
         );
 
     return null;
+}
+
+export default function WeatherPage() {
+    return (
+        <Suspense fallback={<div>Loading weather...</div>}>
+            <WeatherContent />
+        </Suspense>
+    );
 }
