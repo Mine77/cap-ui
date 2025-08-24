@@ -18,7 +18,7 @@ const handler = createMcpHandler(
         // Implemenation of the tool
         const resource = createCapUIResource({
           type: "embed-ui",
-          uiUrl: `http://localhost:3000/weather?latitude=${latitude}&longitude=${longitude}`,
+          uiUrl: `https://cap-ui-sooty.vercel.app/weather?latitude=${latitude}&longitude=${longitude}`,
           name: "weather",
           height: 280,
         });
